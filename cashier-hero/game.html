@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>POS Game Prototype</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="header-row">
+        <h1>Java the Hut</h1>
+        <div id="headerStatus"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="menu">
+        <h2 class="active-tab">Menu Items</h2>
+        <h2 class="inactive">Inventory</h2>
+        <h2 class="inactive">HR & Payroll</h2>
+      </div>
+      <div class="npc">
+        <h2 class="hidden">NPC Orders</h2>
+        <div id="npcPanel"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="chips" id="categoryChips"></div>
+      <div class="muted" id="menuHint"></div>
+      <div class="hr"></div>
+      <div id="itemsPanel"></div>
+      <div class="hr"></div>
+      <div id="builderPanel"></div>
+    </div>
+
+    <div class="panel">
+      <div id="cartPanel"></div>
+    </div>
+  </div>
+
+  <div id="gameOverlay" class="game-overlay-root"></div>
+  <div id="paymentModal" class="payment-modal-root"></div>
+
+  <script src="menuData.js"></script>
+  <script src="order.js"></script>
+  <script src="posMenu.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

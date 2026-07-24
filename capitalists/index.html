@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capitalists Memory Run</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="bootScreen" class="boot-screen">
+    <div class="power-control">
+      <button id="powerButton" class="power-button" type="button" aria-label="Power on">
+        <img class="power-art" src="img/power-button.png" alt="">
+      </button>
+      <span class="power-label">Power</span>
+    </div>
+  </div>
+
+  <div id="desktopShell" class="desktop-shell hidden">
+    <header class="desktop-menu-bar">
+      <div class="menu-brand">
+        <img class="menu-logo" src="img/capitalists-logo.png" alt="Capitalists logo">
+        <strong class="menu-app-name">Capitalists</strong>
+        <nav class="menu-links" aria-label="App menu">
+          <span>File</span>
+          <span>Edit</span>
+          <span>Window</span>
+          <span>Help</span>
+        </nav>
+      </div>
+      <div class="menu-trail">
+        <img class="menu-status-icons" src="img/iphone-icons.png" alt="">
+        <span id="menuDate"></span>
+        <span id="menuTime"></span>
+      </div>
+    </header>
+
+    <aside class="stat-widgets" aria-label="Run stats">
+      <article class="stat-widget">
+        <span class="stat-label">Cash</span>
+        <strong id="cashStat">$0</strong>
+      </article>
+      <article class="stat-widget">
+        <span class="stat-label">Reputation</span>
+        <strong id="reputationStat">0</strong>
+      </article>
+      <article class="stat-widget">
+        <span class="stat-label">Portfolio</span>
+        <strong id="portfolioStat">$0</strong>
+      </article>
+      <article class="stat-widget">
+        <span class="stat-label">Analyzed</span>
+        <strong id="roundStat">0 / 5</strong>
+      </article>
+    </aside>
+
+    <main id="desktopCanvas" class="desktop-canvas">
+      <nav class="desktop-launchers" aria-label="Apps">
+        <button class="launcher-item" type="button" data-window-target="messagesWindow">
+          <span class="launcher-icon yellow"></span>
+          <span>To-Do</span>
+        </button>
+        <button class="launcher-item" type="button" data-window-target="boardMemoWindow">
+          <span class="launcher-icon purple"></span>
+          <span>Board_Memo</span>
+        </button>
+        <button class="launcher-item" type="button" data-window-target="portfolioWindow">
+          <span class="launcher-icon green"></span>
+          <span>Portfolio</span>
+        </button>
+      </nav>
+
+      <section id="messagesWindow" class="desktop-window messages-window" data-window>
+        <div class="window-chrome" data-drag-handle>
+          <strong>To-Do</strong>
+          <div class="window-controls">
+            <button class="chrome-btn close" type="button" data-close-window="messagesWindow" aria-label="Close To-Do"></button>
+            <span class="chrome-btn minimize"></span>
+            <span class="chrome-btn maximize"></span>
+          </div>
+        </div>
+        <div class="window-body window-scroll">
+          <section class="panel messages-panel">
+            <div id="messagesList" class="messages-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="boardMemoWindow" class="desktop-window board-memo-window hidden" data-window>
+        <div class="window-chrome" data-drag-handle>
+          <strong>Board_Memo</strong>
+          <div class="window-controls">
+            <button class="chrome-btn close" type="button" data-close-window="boardMemoWindow" aria-label="Close Board Memo"></button>
+            <span class="chrome-btn minimize"></span>
+            <span class="chrome-btn maximize"></span>
+          </div>
+        </div>
+        <div class="window-body window-scroll board-memo-body">
+          <section class="board-memo-notes">
+          <section class="panel company-topline">
+            <div class="company-topline-header">
+              <div class="company-title-group">
+                <div class="company-logo-placeholder" aria-hidden="true"></div>
+                <h2 id="startupName">Startup</h2>
+              </div>
+              <div class="topline-pills">
+                <span class="mini-chip" id="sectorChip">Sector</span>
+                  <span class="mini-chip" id="stageChip">Stage</span>
+                  <span class="mini-chip" id="founderChip">Founder</span>
+                </div>
+              </div>
+              <p id="taglineText" class="company-tagline"></p>
+              <p id="perceptionText" class="company-perception"></p>
+            </section>
+
+            <section class="panel">
+              <h3 class="section-heading">Evaluation</h3>
+              <div id="revealedAttributes" class="attribute-grid"></div>
+            </section>
+
+            <section id="roundSummaryPanel" class="panel hidden">
+              <h3 class="decision-heading">Should we invest?</h3>
+              <div id="decisionButtons" class="decision-row hidden">
+                <button id="investBtn" class="decision-btn invest" type="button" disabled>Invest</button>
+                <button id="stayBtn" class="decision-btn stay" type="button" disabled>Stay in touch</button>
+                <button id="passBtn" class="decision-btn pass" type="button" disabled>Pass</button>
+              </div>
+              <div class="summary-traits">
+                <div class="summary-trait">
+                  <span class="summary-trait-label">Conviction</span>
+                  <strong id="convictionValue" class="mini-chip summary-chip">0%</strong>
+                </div>
+                <div class="summary-trait">
+                  <span class="summary-trait-label">Outlook</span>
+                  <strong id="outlookValue" class="mini-chip summary-chip">Unknown</strong>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <section class="board-memo-research">
+            <section class="panel research-panel">
+              <div class="research-surface">
+                <h3 class="section-heading">Research</h3>
+                <div id="boardCover" class="board-cover">
+                  <button id="boardCoverBeginBtn" class="secondary-btn" type="button">Begin Research</button>
+                </div>
+                <div id="boardContainer" class="memory-board hidden" aria-live="polite"></div>
+                <div class="app-status-row">
+                  <span id="movesRemainingLabel">10 flips left</span>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+      </section>
+
+      <section id="portfolioWindow" class="desktop-window portfolio-window" data-window>
+        <div class="window-chrome" data-drag-handle>
+          <strong>Portfolio</strong>
+          <div class="window-controls">
+            <button class="chrome-btn close" type="button" data-close-window="portfolioWindow" aria-label="Close Portfolio"></button>
+            <span class="chrome-btn minimize"></span>
+            <span class="chrome-btn maximize"></span>
+          </div>
+        </div>
+        <div class="window-body window-scroll">
+          <section class="panel portfolio-panel">
+            <div class="decision-header">
+              <div>
+                <h3>Portfolio</h3>
+                <p>Every analyzed company gets logged here.</p>
+              </div>
+            </div>
+            <div class="portfolio-tabs">
+              <button class="portfolio-tab is-active" type="button" data-portfolio-tab="invested">Invested</button>
+              <button class="portfolio-tab" type="button" data-portfolio-tab="stay">Stay in touch</button>
+              <button class="portfolio-tab" type="button" data-portfolio-tab="passed">Passed</button>
+            </div>
+            <div id="portfolioList" class="portfolio-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="welcomeModal" class="overlay-modal hidden">
+        <div class="overlay-card">
+          <h2>Welcome to Venture Bros Inc.</h2>
+          <p id="welcomeText">Your job is to evaluate startups to see if they're worth investing in. New evals can be found in your to-do list. Thank you for helping us change the culture, change the world!</p>
+          <button id="closeWelcomeBtn" class="secondary-btn invest" type="button">Get started</button>
+        </div>
+      </section>
+
+      <section id="decisionModal" class="overlay-modal hidden">
+        <div class="overlay-card">
+          <p class="eyebrow">Reply</p>
+          <h2 id="decisionModalTitle">Decision made</h2>
+          <p id="decisionModalText"></p>
+          <button id="closeDecisionModalBtn" class="decision-btn invest" type="button">Back to inbox</button>
+        </div>
+      </section>
+
+      <section id="endScreen" class="desktop-window end-window hidden" data-window>
+        <div class="window-chrome" data-drag-handle>
+          <strong>Run Complete</strong>
+          <div class="window-controls">
+            <button class="chrome-btn close" type="button" data-close-window="endScreen" aria-label="Close Run Complete"></button>
+            <span class="chrome-btn minimize"></span>
+            <span class="chrome-btn maximize"></span>
+          </div>
+        </div>
+        <div class="window-body window-scroll">
+          <section class="end-screen">
+            <p class="eyebrow">Run Complete</p>
+            <h2 id="endHeadline">You closed the sprint.</h2>
+            <p id="endSummary" class="end-summary"></p>
+            <div class="end-metrics">
+              <article>
+                <span>Ending Cash</span>
+                <strong id="endCash">$0</strong>
+              </article>
+              <article>
+                <span>Portfolio Value</span>
+                <strong id="endPortfolio">$0</strong>
+              </article>
+              <article>
+                <span>Reputation</span>
+                <strong id="endReputation">0</strong>
+              </article>
+            </div>
+            <button id="restartBtn" class="decision-btn invest restart-btn" type="button">Restart run</button>
+          </section>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

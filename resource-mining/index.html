@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A large-scale specimen matching game."
+    />
+    <title>Memory</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <aside id="control-panel" class="control-panel" aria-label="Game controls">
+      <div class="panel-top">
+        <a class="back-link" href="../index.html" aria-label="Back to games">←</a>
+        <strong>Memory</strong>
+        <button id="panel-toggle" class="panel-toggle" type="button" aria-label="Minimize controls" aria-expanded="true" aria-controls="panel-content">_</button>
+      </div>
+      <div id="panel-content" class="panel-content">
+        <div class="field-stats">
+          <div><span>Turns</span><strong id="turns">0</strong></div>
+          <div><span>Excavated</span><strong><span id="excavated">0</span>/<span id="total-pairs">240</span></strong></div>
+          <div><span>Surveyed</span><strong id="surveyed">0%</strong></div>
+        </div>
+        <p id="status" class="status" aria-live="polite">Choose your first sample.</p>
+        <button id="new-field" class="new-field" type="button">New field</button>
+      </div>
+    </aside>
+
+    <main class="board-frame">
+      <div id="board" class="board" role="grid" aria-label="Memory card board"></div>
+    </main>
+
+    <div id="complete-dialog" class="complete-dialog" hidden>
+      <div class="complete-card" role="dialog" aria-modal="true" aria-labelledby="complete-title">
+        <h2 id="complete-title">The field is clear.</h2>
+        <p>You excavated every specimen in <strong id="final-turns">0 turns</strong>.</p>
+        <button id="play-again" type="button">Study a new field</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

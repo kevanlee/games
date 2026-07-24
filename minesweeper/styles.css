@@ -1,0 +1,370 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #111;
+  background: #fff;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+.menu-bar {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  min-height: 78px;
+  padding: 0 24px;
+  border-bottom: 1px solid #bbb;
+  background: #fff;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.brand,
+.controls,
+.status {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  gap: 12px;
+}
+
+.back-link {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #bbb;
+  border-radius: 50%;
+  color: #111;
+  text-decoration: none;
+  place-items: center;
+}
+
+.brand-name,
+.status-label {
+  display: block;
+}
+
+.brand-name {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.status-label {
+  margin-top: 2px;
+  color: #777;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.status {
+  height: 100%;
+}
+
+.status-item {
+  min-width: 112px;
+  padding: 0 26px;
+  border-left: 1px solid #ddd;
+  text-align: center;
+}
+
+.status-item:last-child {
+  border-right: 1px solid #ddd;
+}
+
+.status-item strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
+.controls {
+  justify-self: end;
+  gap: 8px;
+}
+
+.controls button,
+.dialog-actions button,
+.pause-screen button {
+  min-height: 38px;
+  padding: 0 15px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.controls button:hover,
+.dialog-actions button:hover,
+.pause-screen button:hover {
+  border-color: #111;
+  background: #f3f3f3;
+}
+
+.controls button:active,
+.dialog-actions button:active {
+  transform: translateY(1px);
+}
+
+.controls .new-game-button,
+.pause-screen button,
+.dialog-actions button:not(.quiet-button) {
+  border-color: #111;
+  color: #fff;
+  background: #111;
+}
+
+main {
+  height: calc(100vh - 78px);
+  overflow: hidden;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+.board-shell {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 78px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: #ddd;
+  scrollbar-color: #888 #eee;
+  scrollbar-width: thin;
+}
+
+.board {
+  display: grid;
+  width: max-content;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 18px;
+  grid-template-columns: repeat(30, 50px);
+  grid-template-rows: repeat(20, 50px);
+  align-content: start;
+  justify-content: center;
+}
+
+.tile {
+  position: relative;
+  display: grid;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  border-radius: 0;
+  color: #111;
+  background: #ddd;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  place-items: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tile:nth-child(30n + 1) {
+  border-left: 1px solid #aaa;
+}
+
+.tile:nth-child(-n + 30) {
+  border-top: 1px solid #aaa;
+}
+
+.tile:hover:not(.revealed) {
+  z-index: 1;
+  background: #f5f5f5;
+  box-shadow: inset 0 0 0 2px #555;
+}
+
+.tile:focus-visible {
+  z-index: 2;
+  outline: 3px solid #111;
+  outline-offset: -4px;
+}
+
+.tile.revealed {
+  color: #111;
+  background: #fff;
+  cursor: default;
+}
+
+.tile.revealed::after {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ccc;
+  content: "";
+}
+
+.tile.number::after,
+.tile.mine::after {
+  display: none;
+}
+
+.tile.flagged::before {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #6c5146;
+  border-radius: 50% 50% 50% 8%;
+  background: #c98b70;
+  box-shadow: 0 0 0 4px rgba(201, 139, 112, 0.14);
+  content: "";
+  transform: rotate(-35deg);
+}
+
+.tile.mine {
+  color: #fff;
+  background: #9a6658;
+}
+
+.tile.mine::before {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255,255,255,.8);
+  border-radius: 50%;
+  content: "";
+}
+
+.tile.wrong {
+  background: #ddd;
+}
+
+.n1, .n2, .n3, .n4, .n5, .n6, .n7, .n8 { color: #111 !important; }
+
+.pause-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  place-content: center;
+}
+
+.pause-screen[hidden] {
+  display: none;
+}
+
+.pause-screen h2 {
+  margin-bottom: 24px;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+}
+
+dialog {
+  width: min(430px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid #888;
+  border-radius: 6px;
+  color: #111;
+  background: #fff;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.25);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+dialog form {
+  padding: 30px;
+}
+
+dialog h2 {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.dialog-actions {
+  display: flex;
+  margin-top: 25px;
+  gap: 9px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 900px) {
+  .menu-bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .status {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .menu-bar {
+    min-height: 70px;
+    padding: 0 14px;
+  }
+
+  #sound-button {
+    display: none;
+  }
+
+  .controls button {
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 0.78rem;
+  }
+
+  main {
+    height: calc(100vh - 70px);
+  }
+
+  .board-shell {
+    height: calc(100vh - 70px);
+  }
+
+  .board {
+    justify-content: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}

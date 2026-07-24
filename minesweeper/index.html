@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Stillfield is a quiet, expansive game of Minesweeper that remembers your progress."
+    />
+    <title>Stillfield — Zen Minesweeper</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="menu-bar">
+      <div class="brand">
+        <a href="../index.html" class="back-link" aria-label="Back to game collection">←</a>
+        <span class="brand-name">Stillfield</span>
+      </div>
+
+      <div class="status" aria-live="polite">
+        <div class="status-item">
+          <span class="status-label">Cleared</span>
+          <strong id="cleared-count">0 / 470</strong>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Markers</span>
+          <strong id="marker-count">130</strong>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Time here</span>
+          <strong id="timer">00:00</strong>
+        </div>
+      </div>
+
+      <nav class="controls" aria-label="Game controls">
+        <button id="sound-button" class="icon-button" type="button" aria-pressed="true">
+          Sound on
+        </button>
+        <button id="pause-button" class="icon-button" type="button">Pause</button>
+        <button id="new-game-button" class="new-game-button" type="button">New field</button>
+      </nav>
+    </header>
+
+    <main>
+      <div id="board-shell" class="board-shell">
+        <div
+          id="board"
+          class="board"
+          role="grid"
+          aria-label="Minesweeper field, 30 columns by 20 rows"
+        ></div>
+        <div id="pause-screen" class="pause-screen" hidden>
+          <h2>Paused</h2>
+          <button id="resume-button" type="button">Resume</button>
+        </div>
+      </div>
+    </main>
+
+    <dialog id="new-game-dialog">
+      <form method="dialog">
+        <h2>Start a new field?</h2>
+        <div class="dialog-actions">
+          <button value="cancel" class="quiet-button">Keep playing</button>
+          <button id="confirm-new-game" value="confirm">Start fresh</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="game.js"></script>
+  </body>
+</html>
