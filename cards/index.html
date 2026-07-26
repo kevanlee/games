@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Make ten poker hands from a 5 by 5 grid of cards." />
+    <title>Poker Squares</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <div class="controls">
+        <a class="back-link" href="../index.html">← All games</a>
+        <div class="swap-counter" aria-live="polite">
+          <span id="swaps-left">3</span> swaps left
+        </div>
+        <button id="new-round" type="button">New round</button>
+      </div>
+
+      <section aria-label="Poker Squares game board">
+        <div class="board-wrap">
+          <div id="board" class="board" role="grid" aria-label="5 by 5 card grid"></div>
+          <div id="row-hands" class="row-hands hand-results" aria-label="Row poker hands"></div>
+          <div id="column-hands" class="column-hands hand-results" aria-label="Column poker hands"></div>
+        </div>
+        <p id="status" class="status" aria-live="polite">Choose a card to start a swap.</p>
+      </section>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
