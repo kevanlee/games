@@ -75,23 +75,38 @@ function getHands() {
 }
 
 function handResultMarkup(hand, label) {
-  const name = hand.name === "High Card" ? "" : hand.name;
+  const isScoring = hand.name !== "High Card";
+  const name = isScoring ? hand.name : "";
   const ariaLabel = name ? `${label}: ${name}` : `${label}: no poker hand`;
-  return `<div class="hand-result" aria-label="${ariaLabel}"><span>${name}</span></div>`;
+  return `<div class="hand-result${isScoring ? " scoring" : ""}" aria-label="${ariaLabel}"><span>${name}</span></div>`;
 }
 
 function render() {
+  const { rows, columns } = getHands();
+  const scoringCards = new Set();
+
+  rows.forEach((hand, row) => {
+    if (hand.name !== "High Card") {
+      for (let column = 0; column < 5; column += 1) scoringCards.add(row * 5 + column);
+    }
+  });
+  columns.forEach((hand, column) => {
+    if (hand.name !== "High Card") {
+      for (let row = 0; row < 5; row += 1) scoringCards.add(row * 5 + column);
+    }
+  });
+
   boardElement.innerHTML = grid
     .map((card, index) => {
       const selected = index === selectedIndex;
-      return `<button class="card${selected ? " selected" : ""}" type="button" role="gridcell"
-        data-index="${index}" aria-pressed="${selected}" aria-label="${card.rank} of ${card.suit}${selected ? ", selected" : ""}">
+      const scoring = scoringCards.has(index);
+      return `<button class="card${selected ? " selected" : ""}${scoring ? " scoring" : ""}" type="button" role="gridcell"
+        data-index="${index}" aria-pressed="${selected}" aria-label="${card.rank} of ${card.suit}${selected ? ", selected" : ""}${scoring ? ", part of a scoring hand" : ""}">
         <img src="${card.image}" alt="" draggable="false">
       </button>`;
     })
     .join("");
 
-  const { rows, columns } = getHands();
   rowHandsElement.innerHTML = rows.map((hand, index) => handResultMarkup(hand, `Row ${index + 1}`)).join("");
   columnHandsElement.innerHTML = columns
     .map((hand, index) => handResultMarkup(hand, `Column ${index + 1}`))
