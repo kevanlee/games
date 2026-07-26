@@ -2,9 +2,10 @@
   font-family: "Comic Neue", cursive;
   color: #000;
   background: #fff;
-  --card-width: clamp(48px, 8.2vw, 92px);
+  --card-width: clamp(44px, 7.2vw, 78px);
   --card-height: calc(var(--card-width) * 1.4286);
-  --gap: clamp(5px, 1vw, 12px);
+  --gap: clamp(5px, .85vw, 10px);
+  --score-accent: #b88720;
 }
 
 * {
@@ -23,7 +24,7 @@ a {
 }
 
 .game-shell {
-  width: min(1000px, calc(100% - 2rem));
+  width: min(900px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2rem 0;
 }
@@ -97,6 +98,27 @@ a {
   image-rendering: pixelated;
 }
 
+.card.scoring {
+  border-color: var(--score-accent);
+  box-shadow: inset 0 0 0 2px #fff, 0 0 0 1px var(--score-accent);
+}
+
+.card.scoring::after {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--score-accent);
+  content: "◆";
+  font-size: 6px;
+  line-height: 9px;
+  text-align: center;
+}
+
 .card:hover,
 .card:focus-visible {
   outline: 2px solid #000;
@@ -133,6 +155,16 @@ a {
   font-size: clamp(.6rem, 1.35vw, .8rem);
 }
 
+.hand-result.scoring span {
+  padding: .28rem .5rem;
+  border-radius: 999px;
+  color: #fff;
+  background: #161616;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 2px 0 var(--score-accent);
+}
+
 .column-hands {
   display: grid;
   grid-template-columns: repeat(5, var(--card-width));
@@ -167,12 +199,11 @@ a {
   .row-hands .hand-result {
     min-height: 2.5rem;
   }
-
 }
 
 @media (max-width: 520px) {
   :root {
-    --card-width: calc((100vw - 2.5rem - 4 * var(--gap)) / 5);
+    --card-width: calc((100vw - 3.5rem - 4 * var(--gap)) / 5);
     --gap: 4px;
   }
 
@@ -196,6 +227,10 @@ a {
 
   .hand-result span {
     font-size: .5rem;
+  }
+
+  .hand-result.scoring span {
+    padding: .22rem .35rem;
   }
 
   .row-hands {
