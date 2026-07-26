@@ -6,9 +6,22 @@ const suits = [
 ];
 
 const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+const handScores = {
+  "High Card": 0,
+  "One Pair": 2,
+  "Two Pair": 5,
+  "Three of a Kind": 10,
+  Straight: 15,
+  Flush: 20,
+  "Full House": 25,
+  "Four of a Kind": 50,
+  "Straight Flush": 75,
+  "Royal Flush": 100,
+};
 const boardElement = document.querySelector("#board");
 const rowHandsElement = document.querySelector("#row-hands");
 const columnHandsElement = document.querySelector("#column-hands");
+const scoreElement = document.querySelector("#score");
 const swapsElement = document.querySelector("#swaps-left");
 const statusElement = document.querySelector("#status");
 const newRoundButton = document.querySelector("#new-round");
@@ -63,7 +76,7 @@ function evaluateHand(cards) {
   else if (counts[0] === 2 && counts[1] === 2) name = "Two Pair";
   else if (counts[0] === 2) name = "One Pair";
 
-  return { name };
+  return { name, score: handScores[name] };
 }
 
 function getHands() {
@@ -75,10 +88,10 @@ function getHands() {
 }
 
 function handResultMarkup(hand, label) {
-  const isScoring = hand.name !== "High Card";
-  const name = isScoring ? hand.name : "";
-  const ariaLabel = name ? `${label}: ${name}` : `${label}: no poker hand`;
-  return `<div class="hand-result${isScoring ? " scoring" : ""}" aria-label="${ariaLabel}"><span>${name}</span></div>`;
+  const isScoring = hand.score > 0;
+  const ariaLabel = isScoring ? `${label}: ${hand.name}, ${hand.score} points` : `${label}: no poker hand`;
+  const content = isScoring ? `${hand.name} <b>+${hand.score}</b>` : "";
+  return `<div class="hand-result${isScoring ? " scoring" : ""}" aria-label="${ariaLabel}"><span>${content}</span></div>`;
 }
 
 function render() {
@@ -86,12 +99,12 @@ function render() {
   const scoringCards = new Set();
 
   rows.forEach((hand, row) => {
-    if (hand.name !== "High Card") {
+    if (hand.score > 0) {
       for (let column = 0; column < 5; column += 1) scoringCards.add(row * 5 + column);
     }
   });
   columns.forEach((hand, column) => {
-    if (hand.name !== "High Card") {
+    if (hand.score > 0) {
       for (let row = 0; row < 5; row += 1) scoringCards.add(row * 5 + column);
     }
   });
@@ -112,6 +125,7 @@ function render() {
     .map((hand, index) => handResultMarkup(hand, `Column ${index + 1}`))
     .join("");
 
+  scoreElement.textContent = [...rows, ...columns].reduce((total, hand) => total + hand.score, 0);
   swapsElement.textContent = swapsLeft;
 }
 
