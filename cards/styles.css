@@ -1,5 +1,5 @@
 :root {
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: "Comic Neue", cursive;
   color: #000;
   background: #fff;
   --card-width: clamp(48px, 8.2vw, 92px);
