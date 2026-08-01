@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Management — a retro sports front-office simulation prototype." />
+  <title>Management</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="start-screen" id="startScreen" aria-labelledby="gameTitle">
+    <div class="start-shell">
+      <p class="system-line">FRONT OFFICE SYSTEM / BUILD 0.1</p>
+      <div class="logo-placeholder" aria-label="Team logo placeholder">
+        <span>M</span>
+        <small>TEAM MARK</small>
+      </div>
+      <h1 id="gameTitle">Management</h1>
+      <p class="start-subtitle">A professional sports management simulation</p>
+      <nav class="start-menu" aria-label="Main menu">
+        <button class="menu-button menu-primary" id="startButton" type="button">
+          <span>01</span> Start
+        </button>
+        <button class="menu-button" id="continueButton" type="button" disabled>
+          <span>02</span> Continue
+          <small>No save data</small>
+        </button>
+      </nav>
+      <p class="start-footer">© 2026 MANAGEMENT SPORTS SOFTWARE</p>
+    </div>
+  </section>
+
+  <div class="app-shell" id="dashboard" hidden>
+    <header class="topbar">
+      <a class="wordmark" href="#" id="homeButton" aria-label="Return to Management start screen">
+        <span class="wordmark-box">M</span>
+        <span>Management</span>
+      </a>
+      <div class="season-status">
+        <span>SEASON 2026</span>
+        <strong>PRESEASON · DAY 04</strong>
+      </div>
+      <div class="club-id">
+        <span class="status-light" aria-hidden="true"></span>
+        <span>Boise Athletic Club</span>
+        <span class="club-monogram">BAC</span>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <nav aria-label="Dashboard navigation">
+          <p class="nav-label">Front office</p>
+          <a class="nav-item active" href="#overview"><span>01</span> Overview</a>
+          <a class="nav-item" href="#roster"><span>02</span> Roster</a>
+          <a class="nav-item" href="#contracts"><span>03</span> Contracts <b>2</b></a>
+          <a class="nav-item" href="#finances"><span>04</span> Finances</a>
+          <p class="nav-label second">Club</p>
+          <a class="nav-item" href="#schedule"><span>05</span> Schedule</a>
+          <a class="nav-item" href="#staff"><span>06</span> Staff</a>
+          <a class="nav-item" href="#league"><span>07</span> League</a>
+        </nav>
+        <div class="sidebar-record">
+          <span>CLUB RECORD</span>
+          <strong>0–0</strong>
+          <small>Preseason rank: 08</small>
+        </div>
+      </aside>
+
+      <main class="dashboard-main" id="overview">
+        <div class="page-heading">
+          <div>
+            <p class="breadcrumb">FRONT OFFICE / OVERVIEW</p>
+            <h2>General manager dashboard</h2>
+          </div>
+          <button class="action-button" type="button">Advance day <span>→</span></button>
+        </div>
+
+        <section aria-labelledby="core-roster-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Core roster</p>
+              <h3 id="core-roster-title">Featured players</h3>
+            </div>
+            <button class="text-button" type="button">View full roster (18)</button>
+          </div>
+
+          <div class="player-grid">
+            <article class="player-card">
+              <div class="player-image"><span>07</span><small>IMAGE</small></div>
+              <div class="player-role"><span>CAPTAIN</span><b>82 OVR</b></div>
+              <h4>Marcus Hill</h4>
+              <p>Guard · Age 28</p>
+              <dl><div><dt>Salary</dt><dd>$8.4M</dd></div><div><dt>Term</dt><dd>3 YRS</dd></div></dl>
+            </article>
+            <article class="player-card">
+              <div class="player-image"><span>22</span><small>IMAGE</small></div>
+              <div class="player-role"><span>STARTER</span><b>79 OVR</b></div>
+              <h4>Andre Webb</h4>
+              <p>Forward · Age 25</p>
+              <dl><div><dt>Salary</dt><dd>$6.1M</dd></div><div><dt>Term</dt><dd>2 YRS</dd></div></dl>
+            </article>
+            <article class="player-card">
+              <div class="player-image"><span>14</span><small>IMAGE</small></div>
+              <div class="player-role"><span>STARTER</span><b>76 OVR</b></div>
+              <h4>Leo Santos</h4>
+              <p>Wing · Age 23</p>
+              <dl><div><dt>Salary</dt><dd>$3.8M</dd></div><div><dt>Term</dt><dd>4 YRS</dd></div></dl>
+            </article>
+            <article class="player-card warning">
+              <div class="player-image"><span>31</span><small>IMAGE</small></div>
+              <div class="player-role"><span>EXPIRING</span><b>74 OVR</b></div>
+              <h4>Cal Foster</h4>
+              <p>Center · Age 31</p>
+              <dl><div><dt>Salary</dt><dd>$5.7M</dd></div><div><dt>Term</dt><dd>1 YR</dd></div></dl>
+            </article>
+            <article class="player-card">
+              <div class="player-image"><span>03</span><small>IMAGE</small></div>
+              <div class="player-role"><span>PROSPECT</span><b>68 OVR</b></div>
+              <h4>Eli Brooks</h4>
+              <p>Guard · Age 20</p>
+              <dl><div><dt>Salary</dt><dd>$1.2M</dd></div><div><dt>Term</dt><dd>3 YRS</dd></div></dl>
+            </article>
+          </div>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="panel finance-panel" id="finances" aria-labelledby="finance-title">
+            <div class="panel-header">
+              <div><p class="section-kicker">Club finances</p><h3 id="finance-title">Current position</h3></div>
+              <span class="period-tag">FY 2026</span>
+            </div>
+            <div class="finance-summary">
+              <div><span>Operating cash</span><strong>$12.8M</strong><small class="positive">+$1.4M YTD</small></div>
+              <div><span>Payroll used</span><strong>$41.2M</strong><small>of $52.0M</small></div>
+              <div><span>Cap space</span><strong>$10.8M</strong><small>20.8% available</small></div>
+            </div>
+            <div class="cap-meter" aria-label="79.2 percent of payroll cap used"><span style="width:79.2%"></span></div>
+            <table>
+              <thead><tr><th>Category</th><th>Budget</th><th>Actual</th><th>Variance</th></tr></thead>
+              <tbody>
+                <tr><td>Player payroll</td><td>$52.0M</td><td>$41.2M</td><td class="positive">+$10.8M</td></tr>
+                <tr><td>Coaching staff</td><td>$6.5M</td><td>$6.2M</td><td class="positive">+$0.3M</td></tr>
+                <tr><td>Scouting</td><td>$2.2M</td><td>$1.4M</td><td class="positive">+$0.8M</td></tr>
+                <tr><td>Facilities</td><td>$4.0M</td><td>$4.3M</td><td class="negative">−$0.3M</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="panel" id="contracts" aria-labelledby="contract-title">
+            <div class="panel-header">
+              <div><p class="section-kicker">Contract desk</p><h3 id="contract-title">Needs attention</h3></div>
+              <span class="alert-count">2 OPEN</span>
+            </div>
+            <div class="contract-list">
+              <article>
+                <div class="contract-number">31</div>
+                <div><strong>Cal Foster</strong><span>Contract expires in 42 days</span></div>
+                <button type="button">Review</button>
+              </article>
+              <article>
+                <div class="contract-number">09</div>
+                <div><strong>Jordan Kim</strong><span>Extension requested</span></div>
+                <button type="button">Review</button>
+              </article>
+              <article class="muted">
+                <div class="contract-number">18</div>
+                <div><strong>Miles Price</strong><span>Team option · 2027</span></div>
+                <button type="button">Later</button>
+              </article>
+            </div>
+            <button class="panel-footer-button" type="button">Open contract ledger <span>→</span></button>
+          </section>
+        </div>
+
+        <footer class="dashboard-footer">
+          <span>DATABASE UPDATED 08:42</span>
+          <span>MANAGEMENT SIM ENGINE v0.1</span>
+          <span>STATUS: <b>ONLINE</b></span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
