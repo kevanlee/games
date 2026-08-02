@@ -51,7 +51,7 @@
       <aside class="sidebar">
         <nav aria-label="Dashboard navigation">
           <p class="nav-label">Front office</p>
-          <a class="nav-item active" href="#overview"><span>01</span> Overview</a>
+          <a class="nav-item active" href="index.html#overview"><span>01</span> Overview</a>
           <a class="nav-item" href="roster.html"><span>02</span> Roster</a>
           <a class="nav-item" href="contracts.html"><span>03</span> Contracts <b>2</b></a>
           <a class="nav-item" href="finances.html"><span>04</span> Finances</a>
@@ -87,35 +87,35 @@
           </div>
 
           <div class="player-grid">
-            <article class="player-card">
+            <article class="player-card" data-player="Marcus Hill" tabindex="0" role="button" aria-label="View Marcus Hill details">
               <div class="player-image"><span>07</span><small>IMAGE</small></div>
               <div class="player-role"><span>CAPTAIN</span><b>82 OVR</b></div>
               <h4>Marcus Hill</h4>
               <p>Guard · Age 28</p>
               <dl><div><dt>Salary</dt><dd>$8.4M</dd></div><div><dt>Term</dt><dd>3 YRS</dd></div></dl>
             </article>
-            <article class="player-card">
+            <article class="player-card" data-player="Andre Webb" tabindex="0" role="button" aria-label="View Andre Webb details">
               <div class="player-image"><span>22</span><small>IMAGE</small></div>
               <div class="player-role"><span>STARTER</span><b>79 OVR</b></div>
               <h4>Andre Webb</h4>
               <p>Forward · Age 25</p>
               <dl><div><dt>Salary</dt><dd>$6.1M</dd></div><div><dt>Term</dt><dd>2 YRS</dd></div></dl>
             </article>
-            <article class="player-card">
+            <article class="player-card" data-player="Leo Santos" tabindex="0" role="button" aria-label="View Leo Santos details">
               <div class="player-image"><span>14</span><small>IMAGE</small></div>
               <div class="player-role"><span>STARTER</span><b>76 OVR</b></div>
               <h4>Leo Santos</h4>
               <p>Wing · Age 23</p>
               <dl><div><dt>Salary</dt><dd>$3.8M</dd></div><div><dt>Term</dt><dd>4 YRS</dd></div></dl>
             </article>
-            <article class="player-card warning">
+            <article class="player-card warning" data-player="Cal Foster" tabindex="0" role="button" aria-label="View Cal Foster details">
               <div class="player-image"><span>31</span><small>IMAGE</small></div>
               <div class="player-role"><span>EXPIRING</span><b>74 OVR</b></div>
               <h4>Cal Foster</h4>
               <p>Center · Age 31</p>
               <dl><div><dt>Salary</dt><dd>$5.7M</dd></div><div><dt>Term</dt><dd>1 YR</dd></div></dl>
             </article>
-            <article class="player-card">
+            <article class="player-card" data-player="Eli Brooks" tabindex="0" role="button" aria-label="View Eli Brooks details">
               <div class="player-image"><span>03</span><small>IMAGE</small></div>
               <div class="player-role"><span>PROSPECT</span><b>68 OVR</b></div>
               <h4>Eli Brooks</h4>
@@ -171,6 +171,43 @@
               </article>
             </div>
             <button class="panel-footer-button" type="button">Open contract ledger <span>→</span></button>
+          </section>
+        </div>
+
+
+        <div class="overview-info-grid">
+          <section class="panel">
+            <div class="panel-header">
+              <div><p class="section-kicker">Western conference</p><h3>Record & standings</h3></div>
+              <span class="period-tag">PRESEASON</span>
+            </div>
+            <div class="record-block">
+              <div><span>TEAM RECORD</span><strong>0–0</strong><small>Preseason begins in 5 days</small></div>
+              <div><span>PROJECTED FINISH</span><strong>11th</strong><small>West · 34.5 wins</small></div>
+              <div><span>POWER RANK</span><strong>22</strong><small>of 30 NBA teams</small></div>
+            </div>
+            <div class="compact-standings">
+              <div><b>8</b><span>Golden State</span><strong>41–41</strong></div>
+              <div><b>9</b><span>L.A. Lakers</span><strong>39–43</strong></div>
+              <div><b>10</b><span>New Orleans</span><strong>37–45</strong></div>
+              <div class="current"><b>11</b><span>Boise Athletic</span><strong>35–47</strong></div>
+              <div><b>12</b><span>Houston</span><strong>34–48</strong></div>
+            </div>
+            <a class="panel-footer-button button-link" href="league.html">Open league standings <span>→</span></a>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <div><p class="section-kicker">Front office calendar</p><h3>Key upcoming dates</h3></div>
+              <span class="alert-count">2 ACTIONS</span>
+            </div>
+            <div class="key-date-list">
+              <article class="urgent"><time><b>09</b><span>AUG</span></time><div><strong>Preseason opener vs. Phoenix</strong><small>Home · 7:00 PM · 5 days</small></div></article>
+              <article><time><b>10</b><span>AUG</span></time><div><strong>Cal Foster response deadline</strong><small>Contract decision required</small></div></article>
+              <article><time><b>19</b><span>AUG</span></time><div><strong>Final roster submission</strong><small>15-player limit · 5:00 PM ET</small></div></article>
+              <article><time><b>22</b><span>OCT</span></time><div><strong>Regular season opener</strong><small>At Portland · 7:30 PM</small></div></article>
+            </div>
+            <a class="panel-footer-button button-link" href="schedule.html">Open full schedule <span>→</span></a>
           </section>
         </div>
 
