@@ -1111,3 +1111,9 @@ progress {
   .player-detail-grid { grid-template-columns: 1fr; }
   .player-detail-grid div + div { border-top: 1px solid var(--line); border-left: 0; }
 }
+
+
+.overview-info-grid.overview-info-top {
+  margin-top: 0;
+  margin-bottom: 32px;
+}
