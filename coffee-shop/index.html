@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Coffee Shop — a minimal Moka pot barista game prototype.">
+  <title>Coffee Shop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <p class="eyebrow">Morning shift</p>
+      <h1>Coffee Shop</h1>
+    </div>
+    <div class="hud">
+      <div><span>Order</span><strong><b id="orderNumber">1</b>/5</strong></div>
+      <div><span>Score</span><strong id="score">0</strong></div>
+      <div><span>Time</span><strong id="timer">0:00</strong></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="order-strip">
+      <div><span>ORDER</span><strong id="orderText">Regular · black</strong></div>
+      <p id="instruction">Pick up the regular coffee.</p>
+      <div class="controls"><kbd>SPACE</kbd> use <kbd>RIGHT-CLICK</kbd> use <kbd>R</kbd> reset</div>
+    </section>
+
+    <section class="workstation" id="workstation" aria-label="Coffee workstation">
+      <div class="station shelf" data-station="shelf"><span>SHELF</span><small>COFFEE</small></div>
+      <div class="station sink" data-station="sink"><span>SINK</span><small>WATER</small></div>
+      <div class="station stove" data-station="stove"><span>STOVE</span><small id="heatLabel">OFF</small><div class="burner"></div></div>
+      <div class="station counter" data-station="counter"><span>COUNTER</span><small>FINISH</small></div>
+      <div class="station serve" data-station="serve"><span>SERVE</span><small>ORDER UP</small></div>
+
+      <div class="object coffee-bag" id="regular" data-object="regular" tabindex="0" style="left:48px;top:115px">
+        <span>REG</span><small>COFFEE</small>
+      </div>
+      <div class="object coffee-bag" id="decaf" data-object="decaf" tabindex="0" style="left:132px;top:115px">
+        <span>DECAF</span><small>COFFEE</small>
+      </div>
+      <div class="object moka" id="moka" data-object="moka" tabindex="0" style="left:240px;top:330px">
+        <div class="moka-top"></div><span>MOKA</span><small id="mokaState">EMPTY</small>
+      </div>
+      <div class="object mug" id="mug" data-object="mug" tabindex="0" style="left:725px;top:335px">
+        <span>MUG</span><small id="mugState">EMPTY</small>
+      </div>
+      <div class="object carton" id="milk" data-object="milk" tabindex="0" style="left:845px;top:315px">
+        <span>MILK</span>
+      </div>
+      <div class="object sugar" id="sugar" data-object="sugar" tabindex="0" style="left:925px;top:335px">
+        <span>SUGAR</span>
+      </div>
+      <div class="object spoon" id="spoon" data-object="spoon" tabindex="0" style="left:1015px;top:365px">
+        <span>SPOON</span>
+      </div>
+
+      <div class="proximity-line" id="proximityLine">Nothing selected</div>
+    </section>
+
+    <footer class="game-actions">
+      <button id="resetButton" type="button">Reset order</button>
+      <div class="heat-meter" id="heatMeter" hidden>
+        <span>BREW</span><div><i id="heatFill"></i><b class="ready-mark"></b></div><strong id="heatStatus">Heating</strong>
+      </div>
+      <button id="nextButton" type="button" disabled>Next order</button>
+    </footer>
+  </main>
+
+  <dialog id="resultDialog">
+    <div><p class="eyebrow">Shift complete</p><h2>Five orders served</h2></div>
+    <section id="resultSummary"></section>
+    <button id="againButton" type="button">Play again</button>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
