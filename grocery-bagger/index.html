@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Grocery Bagger — a grocery packing game prototype.">
+  <title>Grocery Bagger</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="game-header">
+    <div>
+      <p class="eyebrow">Shift 01 · Order 001</p>
+      <h1>Grocery Bagger</h1>
+    </div>
+    <div class="header-stats">
+      <div><span>Score</span><strong id="score">0</strong></div>
+      <div><span>Time</span><strong id="timer">0:00</strong></div>
+      <div><span>Bagged</span><strong><b id="baggedCount">0</b>/25</strong></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="instructions" aria-label="How to play">
+      <strong>Pack the order.</strong>
+      <span>Drag the current item into a bag, or select it and click where it should go.</span>
+      <span><kbd>R</kbd> rotate · <kbd>Esc</kbd> deselect · Avoid crushing fragile and soft items.</span>
+    </section>
+
+    <section class="belt-panel" aria-labelledby="beltTitle">
+      <div class="panel-heading">
+        <div><p class="eyebrow">Checkout conveyor</p><h2 id="beltTitle">Items remaining: <span id="remainingCount">25</span></h2></div>
+        <div class="belt-actions">
+          <button id="rotateButton" type="button">Rotate <kbd>R</kbd></button>
+          <button id="undoButton" type="button" disabled>Undo</button>
+          <button id="resetButton" type="button">Reset</button>
+        </div>
+      </div>
+      <div class="conveyor">
+        <div class="current-zone">
+          <span class="zone-label">NOW BAGGING</span>
+          <div id="currentItem" class="current-item-slot"></div>
+        </div>
+        <div class="queue-wrap">
+          <span class="zone-label">COMING NEXT</span>
+          <div id="itemQueue" class="item-queue"></div>
+        </div>
+      </div>
+      <div id="itemDetails" class="item-details" aria-live="polite"></div>
+    </section>
+
+    <section class="work-area">
+      <div class="bags-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">Packing area</p><h2>Reusable bags</h2></div>
+          <p class="selection-status" id="selectionStatus">Select an item to begin</p>
+        </div>
+        <div class="bags">
+          <article class="bag-shell">
+            <header><div><span>Bag 01</span><strong id="bag1Weight">0.0 lb</strong></div><small id="bag1Meta">0 items · 18 lb target</small></header>
+            <div class="bag" id="bag1" data-bag="1" aria-label="Reusable bag one packing area">
+              <div class="bag-grid-note">CLICK OR DROP TO PLACE</div>
+            </div>
+          </article>
+          <article class="bag-shell">
+            <header><div><span>Bag 02</span><strong id="bag2Weight">0.0 lb</strong></div><small id="bag2Meta">0 items · 18 lb target</small></header>
+            <div class="bag" id="bag2" data-bag="2" aria-label="Reusable bag two packing area">
+              <div class="bag-grid-note">CLICK OR DROP TO PLACE</div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="score-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Live evaluation</p><h2>Scorecard</h2></div></div>
+        <dl class="score-list">
+          <div><dt>Items packed</dt><dd id="packingScore">0</dd></div>
+          <div><dt>Protection</dt><dd id="careScore">0</dd></div>
+          <div><dt>Grouping</dt><dd id="groupScore">0</dd></div>
+          <div><dt>Weight balance</dt><dd id="weightScore">0</dd></div>
+          <div><dt>Speed</dt><dd id="speedScore">0</dd></div>
+        </dl>
+        <div class="total-score"><span>Total</span><strong id="totalScore">0</strong></div>
+        <div class="warnings">
+          <h3>Bag check</h3>
+          <ul id="warningList"><li class="quiet">No issues yet.</li></ul>
+        </div>
+        <button class="finish-button" id="finishButton" type="button" disabled>Finish order</button>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="resultsDialog">
+    <div class="results-header"><p class="eyebrow">Order complete</p><h2>Your bagging report</h2></div>
+    <div id="resultsBody"></div>
+    <div class="results-actions"><button id="playAgainButton" type="button">Bag another order</button></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
