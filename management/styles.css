@@ -1117,3 +1117,70 @@ progress {
   margin-top: 0;
   margin-bottom: 32px;
 }
+
+
+.overview-info-top > .panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.overview-info-top .compact-standings,
+.next-up-list {
+  flex: 1;
+}
+
+.next-up-list {
+  display: grid;
+  grid-template-rows: repeat(4, minmax(62px, 1fr));
+}
+
+.next-up-row {
+  display: grid;
+  grid-template-columns: 48px 1fr 18px;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.next-up-row:hover {
+  background: #e4eaf5;
+  box-shadow: inset 4px 0 0 var(--blue);
+}
+
+.next-up-row time {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ink);
+  background: var(--soft);
+  text-align: center;
+  place-content: center;
+}
+
+.next-up-row time b {
+  font-size: 20px;
+  line-height: .9;
+}
+
+.next-up-row time span {
+  font: 600 7px "IBM Plex Mono", monospace;
+}
+
+.next-up-row strong,
+.next-up-row small {
+  display: block;
+}
+
+.next-up-row small {
+  margin-top: 3px;
+  color: var(--muted);
+  font: 500 9px "IBM Plex Mono", monospace;
+}
+
+.next-up-row > span {
+  color: var(--blue);
+  font-weight: 700;
+}
