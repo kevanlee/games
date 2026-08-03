@@ -2,13 +2,21 @@ const startScreen = document.querySelector("#startScreen");
 const dashboard = document.querySelector("#dashboard");
 const startButton = document.querySelector("#startButton");
 const homeButton = document.querySelector("#homeButton");
+const continueButton = document.querySelector("#continueButton");
+const welcomeDialog = document.querySelector("#welcomeDialog");
+const welcomeBeginButton = document.querySelector("#welcomeBeginButton");
 
-function openDashboard() {
+function openDashboard(showWelcome = false) {
   if (!startScreen || !dashboard) return;
   startScreen.hidden = true;
   dashboard.hidden = false;
+  history.replaceState(null, "", location.pathname + "#feed");
   window.scrollTo(0, 0);
-  document.querySelector(".action-button")?.focus();
+  if (showWelcome && welcomeDialog) {
+    welcomeDialog.showModal();
+  } else {
+    document.querySelector(".feed-card")?.focus();
+  }
 }
 
 function openStartScreen(event) {
@@ -21,11 +29,19 @@ function openStartScreen(event) {
   startButton?.focus();
 }
 
-startButton?.addEventListener("click", openDashboard);
+startButton?.addEventListener("click", () => openDashboard(true));
+continueButton?.addEventListener("click", (event) => {
+  event.preventDefault();
+  openDashboard(false);
+});
+welcomeBeginButton?.addEventListener("click", () => {
+  welcomeDialog?.close();
+  document.querySelector(".feed-card")?.focus();
+});
 homeButton?.addEventListener("click", openStartScreen);
 
-if (location.hash === "#overview") {
-  openDashboard();
+if (location.hash === "#feed" || location.hash === "#overview") {
+  openDashboard(false);
 }
 
 document.querySelectorAll(".nav-item").forEach((item) => {
