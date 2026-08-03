@@ -302,7 +302,7 @@ document.querySelectorAll(".object").forEach(el=>{
     if(el.id==="moka")removeFromHeat();
     updateNear();
   });
-  el.addEventListener("contextmenu",e=>{e.preventDefault();select(el.id);interact();});
+  el.addEventListener("contextmenu",e=>{e.preventDefault();e.stopPropagation();select(el.id);interact();});
   el.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();select(el.id);interact();}});
 });
 
