@@ -21,10 +21,7 @@
         <button class="menu-button menu-primary" id="startButton" type="button">
           <span>01</span> Start
         </button>
-        <button class="menu-button" id="continueButton" type="button" disabled>
-          <span>02</span> Continue
-          <small>No save data</small>
-        </button>
+        <a class="continue-link" id="continueButton" href="#feed">Continue</a>
       </nav>
       <p class="start-footer">© 2026 B-BALL GM SPORTS SOFTWARE</p>
     </div>
@@ -37,8 +34,8 @@
         <span>B-Ball GM</span>
       </a>
       <div class="season-status">
-        <span>SEASON 2026</span>
-        <strong>PRESEASON · DAY 04</strong>
+        <span>OFFSEASON</span>
+        <strong>YEAR ONE</strong>
       </div>
       <div class="club-id">
         <span class="status-light" aria-hidden="true"></span>
@@ -51,7 +48,7 @@
       <aside class="sidebar">
         <nav aria-label="Dashboard navigation">
           <p class="nav-label">Front office</p>
-          <a class="nav-item active" href="index.html#overview"><span>01</span> Overview</a>
+          <a class="nav-item active" href="index.html#feed"><span>01</span> Feed</a>
           <a class="nav-item" href="roster.html"><span>02</span> Roster</a>
           <a class="nav-item" href="contracts.html"><span>03</span> Contracts <b>2</b></a>
           <a class="nav-item" href="finances.html"><span>04</span> Finances</a>
@@ -68,174 +65,106 @@
         </div>
       </aside>
 
-      <main class="dashboard-main" id="overview">
-        <div class="page-heading">
+      <main class="dashboard-main feed-main" id="feed">
+        <div class="feed-phase">
+          <span>Offseason</span>
+          <i aria-hidden="true">|</i>
+          <strong>Year One</strong>
+        </div>
+
+        <div class="page-heading feed-heading">
           <div>
-            <p class="breadcrumb">FRONT OFFICE / OVERVIEW</p>
-            <h2>General manager dashboard</h2>
+            <p class="breadcrumb">FRONT OFFICE / FEED</p>
+            <h2>Your offseason</h2>
           </div>
           <a class="action-button button-link" href="advance-day.html">Advance day <span>→</span></a>
         </div>
 
-        <div class="overview-info-grid overview-info-top">
-          <section class="panel">
-            <div class="panel-header">
-              <div><p class="section-kicker">Western conference</p><h3>Record & standings</h3></div>
-              <span class="period-tag">PRESEASON</span>
+        <section class="feed-stream" aria-label="Front office updates">
+          <a class="feed-card feed-card-featured" href="roster.html">
+            <div class="feed-card-top"><span class="feed-type">ROSTER</span><time>NOW</time></div>
+            <div class="feed-card-body">
+              <span class="feed-number">01</span>
+              <div><h3>Review your roster</h3><p>Meet the fifteen players you inherited. Review roles, ages, ratings, health, and the current depth chart before making any offseason decisions.</p></div>
             </div>
-            <div class="record-block">
-              <div><span>TEAM RECORD</span><strong>0–0</strong><small>Preseason begins in 5 days</small></div>
-              <div><span>PROJECTED FINISH</span><strong>11th</strong><small>West · 34.5 wins</small></div>
-              <div><span>POWER RANK</span><strong>22</strong><small>of 30 NBA teams</small></div>
-            </div>
-            <div class="compact-standings">
-              <div><b>8</b><span>Golden State</span><strong>41–41</strong></div>
-              <div><b>9</b><span>L.A. Lakers</span><strong>39–43</strong></div>
-              <div><b>10</b><span>New Orleans</span><strong>37–45</strong></div>
-              <div class="current"><b>11</b><span>Boise Athletic</span><strong>35–47</strong></div>
-              <div><b>12</b><span>Houston</span><strong>34–48</strong></div>
-            </div>
-            <a class="panel-footer-button button-link" href="league.html#standings">Open standings &amp; stats <span>→</span></a>
-          </section>
+            <div class="feed-card-action">Open roster <span>→</span></div>
+          </a>
 
-          <section class="panel next-up-panel">
-            <div class="panel-header">
-              <div><p class="section-kicker">League calendar</p><h3>Next up</h3></div>
-              <span class="period-tag">4 DATES</span>
+          <a class="feed-card" href="contracts.html#negotiations">
+            <div class="feed-card-top"><span class="feed-type urgent">CONTRACT</span><time>1 DAY AGO</time></div>
+            <div class="feed-card-body">
+              <span class="feed-number">02</span>
+              <div><h3>Cal Foster wants an answer</h3><p>Your starting center is entering the final year of his deal. His agent has proposed a two-year extension worth $13 million.</p><div class="feed-meta"><span>Decision deadline: 9 days</span><span>Cap impact: $6.5M/year</span></div></div>
             </div>
-            <div class="next-up-list">
-              <a class="next-up-row" href="schedule.html#full-season">
-                <time><b>14</b><span>FEB</span></time>
-                <div><strong>NBA All-Star Game</strong><small>Los Angeles · Midseason showcase</small></div>
-                <span>→</span>
-              </a>
-              <a class="next-up-row" href="schedule.html#full-season">
-                <time><b>17</b><span>APR</span></time>
-                <div><strong>NBA Playoffs begin</strong><small>First round · 16 teams</small></div>
-                <span>→</span>
-              </a>
-              <a class="next-up-row" href="schedule.html#full-season">
-                <time><b>03</b><span>JUN</span></time>
-                <div><strong>NBA Finals begin</strong><small>Best-of-seven championship series</small></div>
-                <span>→</span>
-              </a>
-              <a class="next-up-row" href="schedule.html#full-season">
-                <time><b>30</b><span>JUN</span></time>
-                <div><strong>Offseason opens</strong><small>Free agency and roster planning</small></div>
-                <span>→</span>
-              </a>
-            </div>
-            <a class="panel-footer-button button-link" href="schedule.html#full-season">Open full schedule <span>→</span></a>
-          </section>
-        </div>
+            <div class="feed-card-action">Review negotiation <span>→</span></div>
+          </a>
 
-        <section aria-labelledby="core-roster-title">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Core roster</p>
-              <h3 id="core-roster-title">Featured players</h3>
+          <a class="feed-card" href="league.html#transactions">
+            <div class="feed-card-top"><span class="feed-type">FREE AGENCY</span><time>2 DAYS AGO</time></div>
+            <div class="feed-card-body">
+              <span class="feed-number">03</span>
+              <div><h3>Build your free-agent shortlist</h3><p>Free agency opens soon. Identify guards, wings, and bigs who fit the roster before the market begins moving.</p><div class="feed-meta"><span>Cap space: $10.8M</span><span>Shortlist: 0 players</span></div></div>
             </div>
-            <button class="text-button" type="button">View full roster (18)</button>
-          </div>
+            <div class="feed-card-action">Browse free agents <span>→</span></div>
+          </a>
 
-          <div class="player-grid">
-            <article class="player-card" data-player="Marcus Hill" tabindex="0" role="button" aria-label="View Marcus Hill details">
-              <div class="player-image"><span>07</span><small>IMAGE</small></div>
-              <div class="player-role"><span>CAPTAIN</span><b>82 OVR</b></div>
-              <h4>Marcus Hill</h4>
-              <p>Guard · Age 28</p>
-              <dl><div><dt>Salary</dt><dd>$8.4M</dd></div><div><dt>Term</dt><dd>3 YRS</dd></div></dl>
-            </article>
-            <article class="player-card" data-player="Andre Webb" tabindex="0" role="button" aria-label="View Andre Webb details">
-              <div class="player-image"><span>22</span><small>IMAGE</small></div>
-              <div class="player-role"><span>STARTER</span><b>79 OVR</b></div>
-              <h4>Andre Webb</h4>
-              <p>Forward · Age 25</p>
-              <dl><div><dt>Salary</dt><dd>$6.1M</dd></div><div><dt>Term</dt><dd>2 YRS</dd></div></dl>
-            </article>
-            <article class="player-card" data-player="Leo Santos" tabindex="0" role="button" aria-label="View Leo Santos details">
-              <div class="player-image"><span>14</span><small>IMAGE</small></div>
-              <div class="player-role"><span>STARTER</span><b>76 OVR</b></div>
-              <h4>Leo Santos</h4>
-              <p>Wing · Age 23</p>
-              <dl><div><dt>Salary</dt><dd>$3.8M</dd></div><div><dt>Term</dt><dd>4 YRS</dd></div></dl>
-            </article>
-            <article class="player-card warning" data-player="Cal Foster" tabindex="0" role="button" aria-label="View Cal Foster details">
-              <div class="player-image"><span>31</span><small>IMAGE</small></div>
-              <div class="player-role"><span>EXPIRING</span><b>74 OVR</b></div>
-              <h4>Cal Foster</h4>
-              <p>Center · Age 31</p>
-              <dl><div><dt>Salary</dt><dd>$5.7M</dd></div><div><dt>Term</dt><dd>1 YR</dd></div></dl>
-            </article>
-            <article class="player-card" data-player="Eli Brooks" tabindex="0" role="button" aria-label="View Eli Brooks details">
-              <div class="player-image"><span>03</span><small>IMAGE</small></div>
-              <div class="player-role"><span>PROSPECT</span><b>68 OVR</b></div>
-              <h4>Eli Brooks</h4>
-              <p>Guard · Age 20</p>
-              <dl><div><dt>Salary</dt><dd>$1.2M</dd></div><div><dt>Term</dt><dd>3 YRS</dd></div></dl>
-            </article>
-          </div>
+          <a class="feed-card feed-card-compact" href="finances.html#ownership">
+            <div class="feed-card-top"><span class="feed-type">OWNERSHIP</span><time>3 DAYS AGO</time></div>
+            <div class="feed-card-body">
+              <span class="feed-number">04</span>
+              <div><h3>Review your Year One goals</h3><p>Ownership expects progress toward the Play-In while keeping payroll below the luxury tax and developing the youngest players.</p></div>
+            </div>
+            <div class="feed-card-action">Review goals <span>→</span></div>
+          </a>
+
+          <a class="feed-card" href="league.html#draft">
+            <div class="feed-card-top"><span class="feed-type">DRAFT</span><time>4 DAYS AGO</time></div>
+            <div class="feed-card-body">
+              <span class="feed-number">05</span>
+              <div><h3>Scout the NBA Draft</h3><p>Your scouting department has delivered its first prospect board. Review the class and decide where the club needs more information.</p><div class="feed-meta"><span>Own first-round pick</span><span>Projected selection: 11</span></div></div>
+            </div>
+            <div class="feed-card-action">Open draft board <span>→</span></div>
+          </a>
+
+          <article class="feed-card feed-card-locked" aria-disabled="true">
+            <div class="feed-card-top"><span class="feed-type">MILESTONE</span><time>LOCKED</time></div>
+            <div class="feed-card-body">
+              <span class="feed-number">06</span>
+              <div><h3>Start free agency</h3><p>Complete your initial roster review and free-agent shortlist before advancing to the opening of free agency.</p></div>
+            </div>
+            <div class="feed-card-action">Not available yet <span>—</span></div>
+          </article>
+
+          <article class="feed-card feed-card-locked" aria-disabled="true">
+            <div class="feed-card-top"><span class="feed-type">MILESTONE</span><time>LOCKED</time></div>
+            <div class="feed-card-body">
+              <span class="feed-number">07</span>
+              <div><h3>Start the NBA Draft</h3><p>The draft will become available after free agency and final scouting meetings are complete.</p></div>
+            </div>
+            <div class="feed-card-action">Not available yet <span>—</span></div>
+          </article>
         </section>
 
-        <div class="dashboard-grid">
-          <section class="panel finance-panel" id="finances" aria-labelledby="finance-title">
-            <div class="panel-header">
-              <div><p class="section-kicker">Club finances</p><h3 id="finance-title">Current position</h3></div>
-              <span class="period-tag">FY 2026</span>
-            </div>
-            <div class="finance-summary">
-              <div><span>Operating cash</span><strong>$12.8M</strong><small class="positive">+$1.4M YTD</small></div>
-              <div><span>Payroll used</span><strong>$41.2M</strong><small>of $52.0M</small></div>
-              <div><span>Cap space</span><strong>$10.8M</strong><small>20.8% available</small></div>
-            </div>
-            <div class="cap-meter" aria-label="79.2 percent of payroll cap used"><span style="width:79.2%"></span></div>
-            <table>
-              <thead><tr><th>Category</th><th>Budget</th><th>Actual</th><th>Variance</th></tr></thead>
-              <tbody>
-                <tr><td>Player payroll</td><td>$52.0M</td><td>$41.2M</td><td class="positive">+$10.8M</td></tr>
-                <tr><td>Coaching staff</td><td>$6.5M</td><td>$6.2M</td><td class="positive">+$0.3M</td></tr>
-                <tr><td>Scouting</td><td>$2.2M</td><td>$1.4M</td><td class="positive">+$0.8M</td></tr>
-                <tr><td>Facilities</td><td>$4.0M</td><td>$4.3M</td><td class="negative">−$0.3M</td></tr>
-              </tbody>
-            </table>
-          </section>
-
-          <section class="panel" id="contracts" aria-labelledby="contract-title">
-            <div class="panel-header">
-              <div><p class="section-kicker">Contract desk</p><h3 id="contract-title">Needs attention</h3></div>
-              <span class="alert-count">2 OPEN</span>
-            </div>
-            <div class="contract-list">
-              <article>
-                <div class="contract-number">31</div>
-                <div><strong>Cal Foster</strong><span>Contract expires in 42 days</span></div>
-                <button type="button">Review</button>
-              </article>
-              <article>
-                <div class="contract-number">09</div>
-                <div><strong>Jordan Kim</strong><span>Extension requested</span></div>
-                <button type="button">Review</button>
-              </article>
-              <article class="muted">
-                <div class="contract-number">18</div>
-                <div><strong>Miles Price</strong><span>Team option · 2027</span></div>
-                <button type="button">Later</button>
-              </article>
-            </div>
-            <button class="panel-footer-button" type="button">Open contract ledger <span>→</span></button>
-          </section>
-        </div>
-
-
-
         <footer class="dashboard-footer">
-          <span>DATABASE UPDATED 08:42</span>
-          <span>B-BALL GM ENGINE v0.1</span>
+          <span>FEED UPDATED 08:42</span>
+          <span>B-BALL GM ENGINE v0.2</span>
           <span>STATUS: <b>ONLINE</b></span>
         </footer>
       </main>
     </div>
   </div>
+
+  <dialog class="prototype-modal welcome-modal" id="welcomeDialog">
+    <div class="modal-header">
+      <div><p class="section-kicker">B-Ball GM · Year One</p><h3>Welcome to the front office</h3></div>
+    </div>
+    <div class="modal-body welcome-copy">
+      <p>You are the new general manager of the Boise Athletic Club.</p>
+      <p>It is the offseason. You have inherited a roster, an open contract negotiation, $10.8 million in cap space, and two important dates ahead: free agency and the NBA Draft.</p>
+      <p>Your Feed will tell you what needs attention. The decisions are yours.</p>
+    </div>
+    <div class="modal-actions"><button class="action-button" id="welcomeBeginButton" type="button">Let’s begin</button></div>
+  </dialog>
 
   <script src="app.js"></script>
 </body>
