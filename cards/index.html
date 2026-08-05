@@ -1,35 +1,14 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Make ten poker hands from a 5 by 5 grid of cards." />
-    <title>Poker Squares</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="game-shell">
-      <div class="controls">
-        <a class="back-link" href="../index.html">← All games</a>
-        <div class="score" aria-live="polite">Score <strong id="score">0</strong></div>
-        <div class="swap-counter" aria-live="polite">
-          <span id="swaps-left">3</span> swaps left
-        </div>
-        <button id="new-round" type="button">New round</button>
-      </div>
-
-      <section aria-label="Poker Squares game board">
-        <div class="board-wrap">
-          <div id="board" class="board" role="grid" aria-label="5 by 5 card grid"></div>
-          <div id="row-hands" class="row-hands hand-results" aria-label="Row poker hands"></div>
-          <div id="column-hands" class="column-hands hand-results" aria-label="Column poker hands"></div>
-        </div>
-        <p id="status" class="status" aria-live="polite">Choose a card to start a swap.</p>
-      </section>
-    </main>
-    <script src="game.js"></script>
-  </body>
-</html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Poker Squares</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"></head>
+<body>
+  <header class="game-bar"><a href="../index.html">← Back</a><strong>Poker Squares</strong><button id="rules-open">How to play</button></header>
+  <main>
+    <div class="controls"><span>Score <b id="score">0</b></span><span><b id="swaps">3</b> swaps left</span><button id="new-round">New round</button></div>
+    <div class="board-wrap"><div id="board" class="board" role="grid"></div><div id="row-hands" class="row-hands"></div><div id="column-hands" class="column-hands"></div></div>
+    <p id="status" aria-live="polite"></p>
+    <div class="deal-area"><button id="deck" aria-label="Deal next card"><i id="deck-count">52</i></button><div id="current-card"></div></div>
+    <section class="leaderboard"><header><h2>Your best rounds</h2><small>Saved on this device</small></header><ol id="leaderboard"></ol></section>
+  </main>
+  <dialog id="rules"><button id="rules-close" class="close" aria-label="Close">×</button><small>POKER SQUARES</small><h2>How to play</h2><ol><li>Click the deck to reveal one card.</li><li>Place it in any open square.</li><li>After all 25 cards are placed, swap up to three pairs.</li><li>Your five rows and five columns score as ten poker hands.</li></ol><h3>Scoring</h3><div id="scoring"></div></dialog>
+  <script src="game.js"></script>
+</body></html>
