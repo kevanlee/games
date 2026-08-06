@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+:root {
+  color-scheme: light;
+  --background: #fff;
+  --ink: #171717;
+  --muted: #777;
+  --card: #fff;
+  --deck: #222;
+  --card-width: clamp(132px, 22vw, 180px);
+  --card-height: calc(var(--card-width) * 1.4);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--ink);
+  font-family: "Comic Neue", cursive;
+  background: var(--background);
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  box-shadow: none;
+}
+
+.table {
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  padding: 48px 24px 36px;
+  text-align: center;
+}
+
+.intro { margin-bottom: clamp(38px, 7vh, 72px); }
+h1 {
+  margin: 0;
+  font-family: "Comic Neue", cursive;
+  font-size: clamp(2.6rem, 7vw, 4.8rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: var(--card-width) var(--card-width);
+  gap: clamp(42px, 10vw, 108px);
+  align-items: start;
+}
+
+.deck-area { position: relative; }
+.deck {
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  perspective: 800px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card-back {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 10px;
+  background: var(--deck);
+  box-shadow: 0 14px 26px rgba(0,0,0,.22);
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease;
+}
+
+.card-back--third { transform: translate(-5px, 6px) rotate(-1.3deg); opacity: .72; }
+.card-back--second { transform: translate(-2px, 3px) rotate(-.5deg); opacity: .9; }
+.card-back--top {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 6px, rgba(255,255,255,.06) 6px 7px),
+    repeating-linear-gradient(-45deg, transparent 0 6px, rgba(255,255,255,.06) 6px 7px),
+    var(--deck);
+}
+
+.back-border { position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,.46); border-radius: 6px; }
+.back-mark {
+  display: grid;
+  width: 46%;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 50%;
+  color: #fff;
+  font-family: "Comic Neue", cursive;
+  font-size: calc(var(--card-width) * .22);
+  font-style: italic;
+}
+
+.deck-shadow { position: absolute; inset: auto 8% -17px; height: 25px; border-radius: 50%; background: rgba(0,0,0,.32); filter: blur(12px); }
+.deck:hover .card-back--top { transform: translateY(-7px) rotate(.5deg); box-shadow: 0 22px 34px rgba(0,0,0,.3); }
+.deck:active .card-back--top { transform: translateY(-1px) scale(.985); transition-duration: 80ms; }
+.deck:focus-visible { outline: 2px solid #171717; outline-offset: 8px; }
+.deck--dealing .card-back--top { animation: deck-settle 480ms cubic-bezier(.2,.8,.2,1); }
+
+.deck-label { margin: 28px 0 0; color: var(--muted); font-size: .72rem; letter-spacing: .12em; }
+.draw-area { position: relative; width: var(--card-width); height: var(--card-height); }
+.face-pile { position: absolute; inset: 0; }
+
+.empty-slot, .playing-card { position: absolute; inset: 0; border-radius: 10px; }
+.empty-slot {
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(23,23,23,.22);
+  color: rgba(23,23,23,.35);
+  font-family: "Comic Neue", cursive;
+  font-size: .82rem;
+  font-style: italic;
+}
+
+.empty-slot[hidden] { display: none; }
+.playing-card {
+  color: var(--ink);
+  background: linear-gradient(145deg, #fff, #f2f2f0);
+  box-shadow: inset 0 0 0 1px rgba(30,24,18,.09);
+  transform-origin: 30% 90%;
+  transform: translate(var(--pile-x, 0), var(--pile-y, 0)) rotate(var(--pile-rotation, 0));
+}
+
+.playing-card:last-child {
+  box-shadow: 0 22px 40px rgba(0,0,0,.3), inset 0 0 0 1px rgba(30,24,18,.09);
+}
+
+.playing-card--red { color: #3a3a3a; }
+.corner { position: absolute; display: grid; justify-items: center; width: 30px; line-height: .88; }
+.corner--top { top: 12px; left: 11px; }
+.corner--bottom { right: 11px; bottom: 12px; transform: rotate(180deg); }
+.corner .rank { font-family: "Comic Neue", cursive; font-size: calc(var(--card-width) * .14); }
+.corner .suit { margin-top: 5px; font-size: calc(var(--card-width) * .105); }
+.center-suit { position: absolute; inset: 0; display: grid; place-items: center; font-size: calc(var(--card-width) * .44); text-shadow: 0 2px 0 rgba(0,0,0,.05); }
+@keyframes deck-settle {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(3px) scale(.985); }
+  70% { transform: translateY(-2px); }
+}
+
+@media (max-width: 520px) {
+  .table { padding-inline: 20px; }
+  .game { gap: 30px; }
+  .intro { margin-bottom: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

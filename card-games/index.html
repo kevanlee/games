@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>The Draw</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="table">
+      <header class="intro">
+        <h1>Draw a card.</h1>
+      </header>
+
+      <section class="game" aria-label="Card draw">
+        <div class="deck-area">
+          <button class="deck" type="button" aria-label="Draw a card">
+            <span class="deck-shadow" aria-hidden="true"></span>
+            <span class="card-back card-back--third" aria-hidden="true"></span>
+            <span class="card-back card-back--second" aria-hidden="true"></span>
+            <span class="card-back card-back--top" aria-hidden="true">
+              <span class="back-border"></span>
+              <span class="back-mark">D</span>
+            </span>
+          </button>
+          <p class="deck-label"><span id="card-count">52</span> cards</p>
+        </div>
+
+        <div class="draw-area" aria-live="polite">
+          <div class="empty-slot" id="empty-slot" aria-hidden="true">
+            <span>Empty</span>
+          </div>
+          <div class="face-pile" id="face-pile"></div>
+        </div>
+
+        <template id="card-template">
+          <article class="playing-card">
+            <div class="corner corner--top">
+              <strong class="rank">A</strong>
+              <span class="suit">♠</span>
+            </div>
+            <div class="center-suit suit">♠</div>
+            <div class="corner corner--bottom">
+              <strong class="rank">A</strong>
+              <span class="suit">♠</span>
+            </div>
+          </article>
+        </template>
+      </section>
+
+    </main>
+
+    <script>
+      const suits = [
+        { symbol: "♠", name: "spades", color: "black" },
+        { symbol: "♥", name: "hearts", color: "red" },
+        { symbol: "♦", name: "diamonds", color: "red" },
+        { symbol: "♣", name: "clubs", color: "black" },
+      ];
+      const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+
+      const deckButton = document.querySelector(".deck");
+      const cardTemplate = document.querySelector("#card-template");
+      const facePile = document.querySelector("#face-pile");
+      const slot = document.querySelector("#empty-slot");
+      const count = document.querySelector("#card-count");
+      let deck = [];
+      let lastDrawTime = 0;
+      const drawThrottle = 120;
+
+      function shuffleDeck() {
+        deck = suits.flatMap((suit) => ranks.map((rank) => ({ ...suit, rank })));
+        for (let i = deck.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [deck[i], deck[j]] = [deck[j], deck[i]];
+        }
+        count.textContent = deck.length;
+      }
+
+      function drawCard() {
+        const now = performance.now();
+        if (now - lastDrawTime < drawThrottle) return;
+        lastDrawTime = now;
+
+        if (deck.length === 0) {
+          facePile.replaceChildren();
+          shuffleDeck();
+        }
+
+        const drawn = deck.pop();
+        const card = cardTemplate.content.firstElementChild.cloneNode(true);
+        const pileIndex = facePile.children.length;
+        const x = [0, -4, 4, -2, 3][pileIndex % 5];
+        const y = [0, 3, 5, 6, 8][pileIndex % 5];
+        const rotation = [0, -1.2, 1, -0.6, 0.7][pileIndex % 5];
+
+        slot.hidden = true;
+        card.className = `playing-card playing-card--${drawn.color}`;
+        card.style.setProperty("--pile-x", `${x}px`);
+        card.style.setProperty("--pile-y", `${y}px`);
+        card.style.setProperty("--pile-rotation", `${rotation}deg`);
+        card.querySelectorAll(".rank").forEach((el) => (el.textContent = drawn.rank));
+        card.querySelectorAll(".suit").forEach((el) => (el.textContent = drawn.symbol));
+        card.setAttribute("aria-label", `${drawn.rank} of ${drawn.name}`);
+        facePile.append(card);
+        count.textContent = deck.length;
+
+        card.animate(
+          [
+            { opacity: 0, transform: "translate3d(-152px, 5px, 0) rotate(-7deg) scale(.98)" },
+            { opacity: 1, offset: 0.2 },
+            { transform: `translate3d(${x + 7}px, ${y - 3}px, 0) rotate(${rotation + 1.2}deg) scale(1.01)`, offset: 0.76 },
+            { opacity: 1, transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotation}deg) scale(1)` },
+          ],
+          { duration: 560, easing: "cubic-bezier(.2,.85,.25,1)", fill: "both" },
+        );
+
+        deckButton.classList.remove("deck--dealing");
+        void deckButton.offsetWidth;
+        deckButton.classList.add("deck--dealing");
+      }
+
+      shuffleDeck();
+      deckButton.addEventListener("click", drawCard);
+    </script>
+  </body>
+</html>

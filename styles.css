@@ -160,6 +160,58 @@ h2 {
   font-size: 1rem;
 }
 
+.game-cover.draw-cover {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(83, 155, 123, .34), transparent 42%),
+    repeating-linear-gradient(45deg, transparent 0 5px, rgba(255,255,255,.025) 5px 6px),
+    #123f34;
+}
+
+.game-cover.draw-cover::before,
+.game-cover.draw-cover::after {
+  position: absolute;
+  width: 46px;
+  height: 66px;
+  border: 2px solid #efe5cd;
+  border-radius: 5px;
+  content: "";
+  box-shadow: 0 8px 14px rgba(0, 0, 0, .25);
+}
+
+.game-cover.draw-cover::before {
+  left: calc(50% - 58px);
+  background:
+    repeating-linear-gradient(45deg, transparent 0 4px, rgba(255,255,255,.08) 4px 5px),
+    #162d45;
+  transform: rotate(-4deg);
+}
+
+.game-cover.draw-cover::after {
+  left: calc(50% + 9px);
+  border-color: #171b1a;
+  background:
+    radial-gradient(circle at 50% 51%, #c63838 0 8px, transparent 9px),
+    #fffaf0;
+  transform: rotate(5deg);
+}
+
+.game-cover .draw-monogram {
+  z-index: 2;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-left: -67px;
+  border: 1px solid #d5bd80;
+  border-radius: 50%;
+  color: #d5bd80;
+  background: #162d45;
+  font-family: Georgia, serif;
+  font-size: .75rem;
+  font-style: italic;
+  letter-spacing: 0;
+}
+
 .game-cover.stillfield-cover {
   background:
     linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px),
