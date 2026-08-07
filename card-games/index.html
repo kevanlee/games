@@ -9,73 +9,326 @@
   </head>
   <body>
     <main class="table">
-      <header class="intro">
-        <h1>Draw a card.</h1>
-      </header>
+      <section class="prototype-page draw-section" aria-labelledby="draw-heading">
+        <header class="intro">
+          <h1 id="draw-heading">Draw a card.</h1>
+        </header>
 
-      <section class="game" aria-label="Card draw">
-        <div class="deck-area">
-          <button class="deck" type="button" aria-label="Draw a card">
-            <span class="deck-shadow" aria-hidden="true"></span>
-            <span class="card-back card-back--third" aria-hidden="true"></span>
-            <span class="card-back card-back--second" aria-hidden="true"></span>
-            <span class="card-back card-back--top" aria-hidden="true">
-              <span class="back-border"></span>
-              <span class="back-mark">D</span>
-            </span>
-          </button>
-          <p class="deck-label"><span id="card-count">52</span> cards</p>
-        </div>
-
-        <div class="draw-area" aria-live="polite">
-          <div class="empty-slot" id="empty-slot" aria-hidden="true">
-            <span>Empty</span>
+        <div class="game" aria-label="Card draw">
+          <div class="deck-area">
+            <button class="deck" type="button" aria-label="Draw a card">
+              <span class="deck-shadow" aria-hidden="true"></span>
+              <span class="card-back card-back--third" aria-hidden="true"></span>
+              <span class="card-back card-back--second" aria-hidden="true"></span>
+              <span class="card-back card-back--top" aria-hidden="true">
+                <span class="back-border"></span>
+                <span class="back-mark">D</span>
+              </span>
+            </button>
+            <p class="deck-label"><span id="card-count">52</span> cards</p>
           </div>
-          <div class="face-pile" id="face-pile"></div>
+
+          <div class="face-area">
+            <div class="draw-area" aria-live="polite">
+              <div class="empty-slot" id="empty-slot" aria-hidden="true">
+                <span>Empty</span>
+              </div>
+              <div class="face-pile" id="face-pile"></div>
+            </div>
+            <p class="face-label"><span id="face-count">0</span> cards</p>
+          </div>
         </div>
 
         <template id="card-template">
           <article class="playing-card">
             <div class="corner corner--top">
               <strong class="rank">A</strong>
-              <span class="suit">♠</span>
+              <span class="suit-mark corner-suit">♠</span>
             </div>
-            <div class="center-suit suit">♠</div>
+            <div class="card-body"></div>
             <div class="corner corner--bottom">
               <strong class="rank">A</strong>
-              <span class="suit">♠</span>
+              <span class="suit-mark corner-suit">♠</span>
             </div>
           </article>
         </template>
       </section>
 
+      <section class="prototype-page deal-section" aria-labelledby="deal-heading">
+        <header class="deal-intro">
+          <h2 id="deal-heading">Deal a hand.</h2>
+        </header>
+
+        <div class="deal-game">
+          <div class="hand" id="hand" aria-live="polite" aria-label="Five-card hand">
+            <div class="hand-slot"><span class="slot-label">Empty</span></div>
+            <div class="hand-slot"><span class="slot-label">Empty</span></div>
+            <div class="hand-slot"><span class="slot-label">Empty</span></div>
+            <div class="hand-slot"><span class="slot-label">Empty</span></div>
+            <div class="hand-slot"><span class="slot-label">Empty</span></div>
+          </div>
+
+          <div class="deal-deck-area">
+            <button class="deck" id="deal-deck" type="button" aria-label="Deal five cards">
+              <span class="deck-shadow" aria-hidden="true"></span>
+              <span class="card-back card-back--third" aria-hidden="true"></span>
+              <span class="card-back card-back--second" aria-hidden="true"></span>
+              <span class="card-back card-back--top" aria-hidden="true">
+                <span class="back-border"></span>
+                <span class="back-mark">D</span>
+              </span>
+            </button>
+            <p class="deck-label"><span id="deal-count">52</span> cards</p>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     <script>
-      const suits = [
-        { symbol: "♠", name: "spades", color: "black" },
-        { symbol: "♥", name: "hearts", color: "red" },
-        { symbol: "♦", name: "diamonds", color: "red" },
-        { symbol: "♣", name: "clubs", color: "black" },
-      ];
+      const deckThemes = {
+        classic: {
+          suits: {
+            spades: { symbol: "♠", image: null, color: "#171717" },
+            hearts: { symbol: "♥", image: null, color: "#c62828" },
+            diamonds: { symbol: "♦", image: null, color: "#c62828" },
+            clubs: { symbol: "♣", image: null, color: "#171717" },
+          },
+          courts: {
+            jack: { default: null },
+            queen: { default: null },
+            king: { default: null },
+          },
+          cardBack: null,
+        },
+      };
+
+      const suitNames = ["spades", "hearts", "diamonds", "clubs"];
       const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+      const pipLayouts = {
+        A: ["middle-center"],
+        2: ["top-center", "bottom-center"],
+        3: ["top-center", "middle-center", "bottom-center"],
+        4: ["top-left", "top-right", "bottom-left", "bottom-right"],
+        5: ["top-left", "top-right", "middle-center", "bottom-left", "bottom-right"],
+        6: ["top-left", "top-right", "middle-left", "middle-right", "bottom-left", "bottom-right"],
+        7: ["top-left", "top-right", "upper-center", "middle-left", "middle-right", "bottom-left", "bottom-right"],
+        8: ["top-left", "top-right", "upper-center", "middle-left", "middle-right", "lower-center", "bottom-left", "bottom-right"],
+        9: ["top-left", "top-right", "upper-left", "upper-right", "middle-center", "lower-left", "lower-right", "bottom-left", "bottom-right"],
+        10: ["top-left", "top-right", "upper-center", "upper-left", "upper-right", "lower-left", "lower-right", "lower-center", "bottom-left", "bottom-right"],
+      };
+      const courtNames = { J: "jack", Q: "queen", K: "king" };
 
       const deckButton = document.querySelector(".deck");
+      const cardBacks = document.querySelectorAll(".card-back");
       const cardTemplate = document.querySelector("#card-template");
       const facePile = document.querySelector("#face-pile");
       const slot = document.querySelector("#empty-slot");
       const count = document.querySelector("#card-count");
+      const faceCount = document.querySelector("#face-count");
+      const dealDeckButton = document.querySelector("#deal-deck");
+      const dealCount = document.querySelector("#deal-count");
+      const handSlots = [...document.querySelectorAll(".hand-slot")];
       let deck = [];
-      let lastDrawTime = 0;
+      let handDeck = [];
+      let activeTheme = deckThemes.classic;
+      let lastDrawTime = -Infinity;
+      let handIsDealing = false;
       const drawThrottle = 120;
 
-      function shuffleDeck() {
-        deck = suits.flatMap((suit) => ranks.map((rank) => ({ ...suit, rank })));
-        for (let i = deck.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [deck[i], deck[j]] = [deck[j], deck[i]];
+      function fillSuitMark(mark, suitName) {
+        const suit = activeTheme.suits[suitName];
+        mark.replaceChildren();
+
+        if (!suit.image) {
+          mark.textContent = suit.symbol;
+          return;
         }
+
+        const image = new Image();
+        image.src = suit.image;
+        image.alt = "";
+        image.addEventListener("error", () => {
+          mark.replaceChildren();
+          mark.textContent = suit.symbol;
+        }, { once: true });
+        mark.append(image);
+      }
+
+      function renderPips(body, rank, suitName) {
+        const layout = document.createElement("div");
+        layout.className = `pip-layout pip-layout--${rank.toLowerCase()}`;
+
+        pipLayouts[rank].forEach((position) => {
+          const pip = document.createElement("span");
+          pip.className = `pip pip--${position}`;
+          fillSuitMark(pip, suitName);
+          layout.append(pip);
+        });
+
+        body.append(layout);
+      }
+
+      function renderCourtFallback(body, rank, suitName) {
+        const court = document.createElement("div");
+        const courtName = courtNames[rank];
+        court.className = `court-figure court-figure--${courtName}`;
+
+        ["top", "bottom"].forEach((side) => {
+          const half = document.createElement("div");
+          half.className = `court-half court-half--${side}`;
+          half.innerHTML = `
+            <span class="court-headdress"></span>
+            <span class="court-head"></span>
+            <span class="court-collar"></span>
+            <span class="court-robe"></span>
+            <strong class="court-rank">${rank}</strong>
+            <span class="court-suit suit-mark"></span>
+          `;
+          fillSuitMark(half.querySelector(".court-suit"), suitName);
+          court.append(half);
+        });
+
+        const divider = document.createElement("span");
+        divider.className = "court-divider";
+        court.append(divider);
+        body.append(court);
+      }
+
+      function renderCourt(body, rank, suitName) {
+        const courtName = courtNames[rank];
+        const artwork = activeTheme.courts[courtName] || {};
+        const imageSource = artwork[suitName] || artwork.default;
+
+        if (!imageSource) {
+          renderCourtFallback(body, rank, suitName);
+          return;
+        }
+
+        const image = new Image();
+        image.className = "court-artwork";
+        image.src = imageSource;
+        image.alt = "";
+        image.addEventListener("error", () => {
+          body.replaceChildren();
+          renderCourtFallback(body, rank, suitName);
+        }, { once: true });
+        body.append(image);
+      }
+
+      function renderCard(card, cardData) {
+        const suit = activeTheme.suits[cardData.suit];
+        card.dataset.rank = cardData.rank;
+        card.dataset.suit = cardData.suit;
+        card.style.setProperty("--suit-color", suit.color);
+        card.querySelectorAll(".rank").forEach((element) => (element.textContent = cardData.rank));
+        card.querySelectorAll(".corner-suit").forEach((mark) => fillSuitMark(mark, cardData.suit));
+
+        const body = card.querySelector(".card-body");
+        body.replaceChildren();
+        if (pipLayouts[cardData.rank]) renderPips(body, cardData.rank, cardData.suit);
+        else renderCourt(body, cardData.rank, cardData.suit);
+
+        card.setAttribute("aria-label", `${cardData.rank} of ${cardData.suit}`);
+      }
+
+      function setDeckTheme(themeName) {
+        if (!deckThemes[themeName]) return false;
+        const base = deckThemes.classic;
+        const selected = deckThemes[themeName];
+        activeTheme = {
+          suits: Object.fromEntries(suitNames.map((name) => [name, {
+            ...base.suits[name],
+            ...(selected.suits?.[name] || {}),
+          }])),
+          courts: Object.fromEntries(Object.keys(courtNames).map((rank) => {
+            const name = courtNames[rank];
+            return [name, { ...base.courts[name], ...(selected.courts?.[name] || {}) }];
+          })),
+          cardBack: selected.cardBack || base.cardBack,
+        };
+
+        cardBacks.forEach((cardBack) => {
+          cardBack.classList.toggle("card-back--custom", Boolean(activeTheme.cardBack));
+          cardBack.style.setProperty("--card-back-image", activeTheme.cardBack ? `url("${activeTheme.cardBack}")` : "none");
+        });
+
+        document.querySelectorAll(".playing-card").forEach((card) => {
+          renderCard(card, { rank: card.dataset.rank, suit: card.dataset.suit });
+        });
+        return true;
+      }
+
+      function createShuffledDeck() {
+        const cards = suitNames.flatMap((suit) => ranks.map((rank) => ({ suit, rank })));
+        for (let i = cards.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [cards[i], cards[j]] = [cards[j], cards[i]];
+        }
+        return cards;
+      }
+
+      function shuffleDeck() {
+        deck = createShuffledDeck();
         count.textContent = deck.length;
+        faceCount.textContent = facePile.children.length;
+      }
+
+      function resetHandSlots() {
+        handSlots.forEach((handSlot) => {
+          handSlot.querySelector(".playing-card")?.remove();
+          handSlot.querySelector(".slot-label").hidden = false;
+        });
+      }
+
+      function dealHand() {
+        if (handIsDealing) return;
+        if (handDeck.length < handSlots.length) handDeck = createShuffledDeck();
+        handIsDealing = true;
+        resetHandSlots();
+
+        handSlots.forEach((handSlot, index) => {
+          const drawn = handDeck.pop();
+          const card = cardTemplate.content.firstElementChild.cloneNode(true);
+          card.classList.add("hand-card");
+          card.tabIndex = 0;
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-pressed", "false");
+          renderCard(card, drawn);
+          handSlot.append(card);
+          handSlot.querySelector(".slot-label").hidden = true;
+
+          const deckRect = dealDeckButton.getBoundingClientRect();
+          const slotRect = handSlot.getBoundingClientRect();
+          const startX = deckRect.left - slotRect.left;
+          const startY = deckRect.top - slotRect.top;
+
+          card.animate(
+            [
+              { opacity: 0, transform: `translate3d(${startX}px, ${startY}px, 0) rotate(5deg) scale(.96)` },
+              { opacity: 1, offset: .18 },
+              { transform: "translate3d(-2px, 1px, 0) rotate(-.7deg) scale(1.01)", offset: .8 },
+              { opacity: 1, transform: "translate3d(0, 0, 0) rotate(0) scale(1)" },
+            ],
+            {
+              delay: index * 115,
+              duration: 480,
+              easing: "cubic-bezier(.2,.85,.25,1)",
+              fill: "backwards",
+            },
+          );
+        });
+
+        dealCount.textContent = handDeck.length;
+        dealDeckButton.classList.remove("deck--dealing");
+        void dealDeckButton.offsetWidth;
+        dealDeckButton.classList.add("deck--dealing");
+        window.setTimeout(() => (handIsDealing = false), 960);
+      }
+
+      function toggleHandCard(card) {
+        const isSelected = card.classList.toggle("is-selected");
+        card.setAttribute("aria-pressed", String(isSelected));
       }
 
       function drawCard() {
@@ -96,15 +349,13 @@
         const rotation = [0, -1.2, 1, -0.6, 0.7][pileIndex % 5];
 
         slot.hidden = true;
-        card.className = `playing-card playing-card--${drawn.color}`;
         card.style.setProperty("--pile-x", `${x}px`);
         card.style.setProperty("--pile-y", `${y}px`);
         card.style.setProperty("--pile-rotation", `${rotation}deg`);
-        card.querySelectorAll(".rank").forEach((el) => (el.textContent = drawn.rank));
-        card.querySelectorAll(".suit").forEach((el) => (el.textContent = drawn.symbol));
-        card.setAttribute("aria-label", `${drawn.rank} of ${drawn.name}`);
+        renderCard(card, drawn);
         facePile.append(card);
         count.textContent = deck.length;
+        faceCount.textContent = facePile.children.length;
 
         card.animate(
           [
@@ -113,7 +364,7 @@
             { transform: `translate3d(${x + 7}px, ${y - 3}px, 0) rotate(${rotation + 1.2}deg) scale(1.01)`, offset: 0.76 },
             { opacity: 1, transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotation}deg) scale(1)` },
           ],
-          { duration: 560, easing: "cubic-bezier(.2,.85,.25,1)", fill: "both" },
+          { duration: 560, easing: "cubic-bezier(.2,.85,.25,1)", fill: "backwards" },
         );
 
         deckButton.classList.remove("deck--dealing");
@@ -121,8 +372,24 @@
         deckButton.classList.add("deck--dealing");
       }
 
+      window.registerDeckTheme = (name, theme) => (deckThemes[name] = theme);
+      window.setDeckTheme = setDeckTheme;
+      setDeckTheme("classic");
       shuffleDeck();
+      handDeck = createShuffledDeck();
       deckButton.addEventListener("click", drawCard);
+      dealDeckButton.addEventListener("click", dealHand);
+      document.querySelector("#hand").addEventListener("click", (event) => {
+        const card = event.target.closest(".hand-card");
+        if (card) toggleHandCard(card);
+      });
+      document.querySelector("#hand").addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        const card = event.target.closest(".hand-card");
+        if (!card) return;
+        event.preventDefault();
+        toggleHandCard(card);
+      });
     </script>
   </body>
 </html>
